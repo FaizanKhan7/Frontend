@@ -499,6 +499,9 @@ export default function FeedFinal() {
                 <Card
                   key={repo.id}
                   repo={repo}
+                  isSaved={
+                    savedRepos.find((id) => id === repo.node_id) !== undefined
+                  }
                   isStarred={
                     savedRepos.find((id) => id === repo.node_id) !== undefined
                   }
