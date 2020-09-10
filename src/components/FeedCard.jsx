@@ -1,12 +1,18 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from '../scss/card.module.scss';
 // import LinearLoader from './LinearLoader';
 // eslint-disable-next-line
-export default function Card({ repo, isSaved, changeSaveOption }) {
-  // const [saving, setSaving] = useState(false);
+export default function Card({
+  repo,
+  isSaved,
+  // changeSaveOption,
+  isStarred,
+  changeStarOption
+}) {
+  const [starring, setStarring] = useState(false);
   return (
     <div>
       <div className={isSaved ? styles.savedRepo : styles['big-box']}>
@@ -25,7 +31,9 @@ export default function Card({ repo, isSaved, changeSaveOption }) {
           <div className={styles.middle}>
             <Link
               href={{ pathname: `/project/[pid]` }}
-              as={`/project/${`${repo.full_name.split('/')[0]  } ${  repo.full_name.split('/')[1]}`}`}>
+              as={`/project/${`${repo.full_name.split('/')[0]} ${
+                repo.full_name.split('/')[1]
+              }`}`}>
               <div className={styles.heading}>
                 <p>{repo.full_name.split('/')[1]}</p>
               </div>
@@ -89,6 +97,26 @@ export default function Card({ repo, isSaved, changeSaveOption }) {
                 {isSaved ? 'Saved' : 'Save'}
               </button>
             )} */}
+            {starring === false && (
+              <button
+                type="button"
+                className={
+                  isStarred === true ? styles.savedButton : styles.unSavedButton
+                }
+                onClick={() => {
+                  setStarring(true);
+                  if (isStarred === true) {
+                    changeStarOption('remove').then(() => {
+                      setStarring(false);
+                    });
+                  } else
+                    changeStarOption('add').then(() => {
+                      setStarring(false);
+                    });
+                }}>
+                {isStarred ? 'Starred' : 'Star'}
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -114,5 +142,7 @@ Card.propTypes = {
     })
   }).isRequired,
   isSaved: PropTypes.bool.isRequired,
-  changeSaveOption: PropTypes.func.isRequired
+  // changeSaveOption: PropTypes.func.isRequired,
+  isStarred: PropTypes.bool.isRequired,
+  changeStarOption: PropTypes.func.isRequired
 };

@@ -499,10 +499,10 @@ export default function FeedFinal() {
                 <Card
                   key={repo.id}
                   repo={repo}
-                  isSaved={
+                  isStarred={
                     savedRepos.find((id) => id === repo.node_id) !== undefined
                   }
-                  changeSaveOption={async (method) => {
+                  changeStarOption={async (method) => {
                     return changeSavedList(repo.node_id, method);
                   }}
                 />
