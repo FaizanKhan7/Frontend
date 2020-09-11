@@ -136,9 +136,9 @@ export default function FeedFinal() {
 
   // Apply Langauges Filter
   const applyLanguagesFilter = () => {
-    if (selectedLanguagesList.length > 1) {
-      return;
-    }
+    // if (selectedLanguagesList.length > 1) {
+    //   return;
+    // }
     setAppliedLanguagesList(selectedLanguagesList);
   };
   // Clear All Filters
@@ -233,29 +233,61 @@ export default function FeedFinal() {
             className={`${styles['data-list']} ${
               applyLangFilterDisabled ? styles['error-list'] : ''
             } `}>
+            <div key='all'>
+            <input
+                    type="radio"
+                    value='All'
+                    name="language"
+                    defaultChecked
+                    onChange={() => {
+                      // if (
+                      //   selectedLanguagesList.find(
+                      //     (el) => el === e.target.value
+                      //   ) !== undefined
+                      // ) {
+                      //   setSelectedLanguagesList([
+                      //     ...selectedLanguagesList.filter(
+                      //       (el) => el !== e.target.value
+                      //     )
+                      //   ]);
+                      // } else
+                      //   setSelectedLanguagesList([
+                      //     ...selectedLanguagesList,
+                      //     e.target.value
+                      //   ]);
+                      const sel = [];
+                      setSelectedLanguagesList(sel);
+                    setAppliedLanguagesList(sel);
+                    }}
+                  />
+                  All
+                </div>
             {languageList.map((lang) => {
               return (
                 <div key={lang}>
                   <input
-                    type="checkbox"
+                    type="radio"
                     value={lang}
                     name="language"
                     onChange={(e) => {
-                      if (
-                        selectedLanguagesList.find(
-                          (el) => el === e.target.value
-                        ) !== undefined
-                      ) {
-                        setSelectedLanguagesList([
-                          ...selectedLanguagesList.filter(
-                            (el) => el !== e.target.value
-                          )
-                        ]);
-                      } else
-                        setSelectedLanguagesList([
-                          ...selectedLanguagesList,
-                          e.target.value
-                        ]);
+                      // if (
+                      //   selectedLanguagesList.find(
+                      //     (el) => el === e.target.value
+                      //   ) !== undefined
+                      // ) {
+                      //   setSelectedLanguagesList([
+                      //     ...selectedLanguagesList.filter(
+                      //       (el) => el !== e.target.value
+                      //     )
+                      //   ]);
+                      // } else
+                      //   setSelectedLanguagesList([
+                      //     ...selectedLanguagesList,
+                      //     e.target.value
+                      //   ]);
+                      const sel = [e.target.value];
+                      setSelectedLanguagesList(sel);
+                    setAppliedLanguagesList(sel);
                     }}
                   />
                   {'  '} {lang}
