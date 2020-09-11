@@ -2,24 +2,45 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
+import { toast } from 'react-toastify';
+
 import styles from '../scss/card.module.scss';
-// import LinearLoader from './LinearLoader';
+import { starRepo, unStarRepo } from '../services/feed';
+import LinearLoader from './LinearLoader';
+
 // eslint-disable-next-line
-export default function Card({
-  repo,
-  isSaved,
-  // changeSaveOption,
-  isStarred,
-  changeStarOption
-}) {
+export default function Card({ repo, isStarredProp }) {
+  const [isStarred, setIsStarred] = useState(isStarredProp);
   const [starring, setStarring] = useState(false);
+  const changeStar = async (method, name) => {
+    if (method === 'remove') {
+      try {
+        await unStarRepo(name);
+      } catch (res) {
+        toast.error(`${res.status} : ${res.message}`);
+      }
+    } else {
+      try {
+        await starRepo(name);
+      } catch (res) {
+        toast.error(`${res.status} : ${res.message}`);
+      }
+    }
+    setIsStarred(!isStarred);
+    setStarring(false);
+  };
   return (
     <div>
-      <div className={isSaved ? styles.savedRepo : styles['big-box']}>
+      <div className={isStarred ? styles.starredRepo : styles['big-box']}>
         <div className={styles.flex}>
           <div className={styles['left-col']}>
             <img
-              src={repo.owner.avatar_url}
+              src={
+                repo &&
+                repo.owner &&
+                repo.owner.avatar_url &&
+                repo.owner.avatar_url
+              }
               className={styles.repoOwnerImage}
               alt="Organisation Logo"
             />
@@ -76,47 +97,26 @@ export default function Card({
                 </div>
               </div>
             </div>
-            {/* {saving === true && <LinearLoader />}
-            {saving === false && (
-              <button
-                type="button"
-                className={
-                  isSaved === true ? styles.savedButton : styles.unSavedButton
-                }
-                onClick={() => {
-                  setSaving(true);
-                  if (isSaved === true) {
-                    changeSaveOption('remove').then(() => {
-                      setSaving(false);
-                    });
-                  } else
-                    changeSaveOption('add').then(() => {
-                      setSaving(false);
-                    });
-                }}>
-                {isSaved ? 'Saved' : 'Save'}
-              </button>
-            )} */}
             {starring === false && (
               <button
                 type="button"
                 className={
-                  isStarred === true ? styles.savedButton : styles.unSavedButton
+                  isStarred === true
+                    ? styles.starredButton
+                    : styles.unStarredButton
                 }
                 onClick={() => {
                   setStarring(true);
                   if (isStarred === true) {
-                    changeStarOption('remove').then(() => {
-                      setStarring(false);
-                    });
-                  } else
-                    changeStarOption('add').then(() => {
-                      setStarring(false);
-                    });
+                    changeStar('remove', repo.full_name);
+                  } else {
+                    changeStar('add', repo.full_name);
+                  }
                 }}>
-                {isStarred ? 'Starred' : 'Star'}
+                {isStarred ? 'UnStar' : 'Star'}
               </button>
             )}
+            {starring && <LinearLoader />}
           </div>
         </div>
       </div>
@@ -141,8 +141,5 @@ Card.propTypes = {
       avatar_url: PropTypes.string
     })
   }).isRequired,
-  isSaved: PropTypes.bool.isRequired,
-  // changeSaveOption: PropTypes.func.isRequired,
-  isStarred: PropTypes.bool.isRequired,
-  changeStarOption: PropTypes.func.isRequired
+  isStarredProp: PropTypes.bool.isRequired
 };
