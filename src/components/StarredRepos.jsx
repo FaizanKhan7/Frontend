@@ -24,7 +24,7 @@ export default function StarredRepos() {
         res.data &&
         res.data.data &&
         setRepoList([...repoList, res.data.data].flat());
-      if (res.data.hasNextPage === false) {
+      if (res && res.data && res.data.hasNextPage === false) {
         setReachedEnd(true);
       }
       setPageNo(pageNo + 1);

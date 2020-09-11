@@ -35,12 +35,7 @@ export default function Card({ repo, isStarredProp }) {
         <div className={styles.flex}>
           <div className={styles['left-col']}>
             <img
-              src={
-                repo &&
-                repo.owner &&
-                repo.owner.avatar_url &&
-                repo.owner.avatar_url
-              }
+              src={repo.owner && repo.owner.avatar_url && repo.owner.avatar_url}
               className={styles.repoOwnerImage}
               alt="Organisation Logo"
             />
