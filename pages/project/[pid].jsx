@@ -1,16 +1,51 @@
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
+// import { toast } from 'react-toastify';
 
 import Discussion from '../../src/components/Feed/Discussion';
 import Issues from '../../src/components/Feed/Issues';
 import PullRequests from '../../src/components/Feed/Pull-requests';
 import Header from '../../src/components/Header';
-import Spinner from '../../src/components/Spinner';
+// import Spinner from '../../src/components/Spinner';
 import styles from '../../src/scss/project.module.scss';
+// import * as feedService from '../../src/services/feed';
 
 const project = () => {
   const [repoUrl, setRepoUrl] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
+  // const [pageNo, setPageNo] = useState(1); // Node id to start after
+  // const [repoList, setRepoList] = useState([]); // All Repositories List
+  // const [reachedEnd, setReachedEnd] = useState(false); // Infinite Scrolling : End Reached
+  // const [reposLoading, setReposLoading] = useState(false);
+
+  // async function getRepoInfo() {
+  //   try {
+  //     const res = feedService.getRepo(owner, name);
+  //     if (res.status === 200)
+  //       res.data &&
+  //         res.data.data &&
+  //         res.data.data.items &&
+  //         setRepoList([...repoList, res.data.data.items].flat());
+  //     if (res.data.hasNextPage === false) {
+  //       setReachedEnd(true);
+  //     }
+  //     setPageNo(pageNo + 1);
+  //   } catch (res) {
+  //     toast.error(`${res.status} : ${res.message}`);
+  //     setReachedEnd(true);
+  //   }
+  //   setPageLoading(false);
+  //   setReposLoading(false);
+  // }
+  //   useEffect(() => {
+  //   if (paramsChanged !== null) getNextRepos();
+  //   if (firstResult.current) {
+  //     window.scrollTo({
+  //       top: firstResult.current.offsetTop,
+  //       behavior: 'smooth'
+  //     });
+  //   }
+  // }, [paramsChanged]);
 
   useEffect(() => {
     if (Router.query.pid) {
@@ -29,35 +64,47 @@ const project = () => {
     setTab(tab);
   };
 
-  if (pageLoading) return <Spinner />;
+  // if (pageLoading) {
+  //   return <Spinner />;
+  // }
 
   return (
     <div>
       <Header />
       <div className={styles.projectProfile}>
         <div className={styles['card-left-column']}>
-          <h1>Open Source Code</h1>
+          {/* <h1></h1> */}
           <div className={styles['card-left-info']}>
             <div className={styles['org-languages']}>
-              <p>By Organisation | 08 May 2020</p>
-              <span className={styles['org-lang-1']}>Javascript</span>
-              <span className={styles['org-lang-2']}>CSS</span>
+              <p>
+                By{' '}
+                <em style={{ color: 'green' }}>
+                  {/* {Router.query.pid.split(' ')[0]} */}
+                </em>{' '}
+                | Updated:{' '}
+                {/* {repoNames.updated_at && repoNames.updated_at.slice(0, 10)} */}
+              </p>
+              <span className={styles['org-lang-1']}>
+                {/* {Router.query.pid.language} */}
+              </span>
+              <span className={styles['org-lang-2']}>
+                {/* {Router.query.pid.language} */}
+              </span>
             </div>
-            <p>
-              There should be some content her. So I am filling this with random
-              content inorder to fill this space. Feel free to add on.We can add
-              more and more content here so that we can see what this is gonna
-              look like on the real website page
-            </p>
+            <p>{Router.query.pid.description}</p>
             <div className={styles['git-dev-icons']}>
-              <div className={styles['github-icon']}>
+              {/* <a href={Router.query.pid.html_url} target="_blank"> */}
+              <button className={styles['github-icon']}>
                 <img src="/icons/github-icon.png" alt="Github-icon" />
                 <p>Github</p>
-              </div>
-              <div className={styles['gitpod-icon']}>
+              </button>
+              {/* </a> */}
+              {/* <a href={Router.query.pid.html_url} target="_blank"> */}
+              <button className={styles['gitpod-icon']}>
                 <img src="/icons/gitPod-icon.png" alt="Gitpod-icon" />
                 <p>Gitpod</p>
-              </div>
+              </button>
+              {/* </a> */}
             </div>
           </div>
         </div>
