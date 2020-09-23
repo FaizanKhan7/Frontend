@@ -68,7 +68,7 @@ const project = () => {
                 {repoData.language && repoData.language}
               </span>
             </div>
-            <p>{Router.query.pid.description}</p>
+            <p>{repoData.description && repoData.description}</p>
             <div className={styles['git-dev-icons']}>
               <a
                 href={repoData.html_url && repoData.html_url}
