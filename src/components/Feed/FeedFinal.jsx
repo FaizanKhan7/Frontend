@@ -209,6 +209,66 @@ export default function FeedFinal() {
         {/* Display the filters here  */}
         <div className={styles.filterbox}>
           <h1> Filters </h1>
+          <div className={styles.filterOptions}>
+            <p>Basic</p>
+            <p>Advanced</p>
+          </div>
+          <div className={styles.basicFilter}>
+            <div className={styles.filterBtns}>
+              <div className={styles.btnStyles}>
+                <p>React</p>
+                <img
+                  src="/icons/react-icon.png"
+                  alt="React_logo"
+                  className={styles.devIcons}
+                />
+              </div>
+              <div className={styles.btnStyles}>
+                <p>Vue</p>
+                <img
+                  src="/icons/vuejs-icon.png"
+                  alt="Vuejs_logo"
+                  className={styles.devIcons}
+                />
+              </div>
+            </div>
+            <div className={styles.filterBtns}>
+              <div className={styles.btnStyles}>
+                <p>Angular</p>
+                <img
+                  src="/icons/angularjs-icon.png"
+                  alt="Angular_logo"
+                  className={styles.devIcons}
+                />
+              </div>
+              <div className={styles.btnStyles}>
+                <p>ML/AI</p>
+                <img
+                  src="/icons/al-ml-icon.png"
+                  alt="ML_AI_logo"
+                  className={styles.devIcons}
+                />
+              </div>
+            </div>
+            <div className={styles.filterBtns}>
+              <div className={styles.btnStyles}>
+                <p>Data Science</p>
+                <img
+                  src="/icons/data-science-icon.png"
+                  alt="data_science_logo"
+                  className={styles.devIcons}
+                />
+              </div>
+              <div className={styles.btnStyles}>
+                <p>Web Development</p>
+                <img
+                  src="/icons/web-dev-icon.png"
+                  alt="web_dev_logo"
+                  className={styles.devIcons}
+                />
+              </div>
+            </div>
+          </div>
           {/* Languages */}
           <h3>
             {' '}
@@ -233,35 +293,35 @@ export default function FeedFinal() {
             className={`${styles['data-list']} ${
               applyLangFilterDisabled ? styles['error-list'] : ''
             } `}>
-            <div key='all'>
-            <input
-                    type="radio"
-                    value='All'
-                    name="language"
-                    defaultChecked
-                    onChange={() => {
-                      // if (
-                      //   selectedLanguagesList.find(
-                      //     (el) => el === e.target.value
-                      //   ) !== undefined
-                      // ) {
-                      //   setSelectedLanguagesList([
-                      //     ...selectedLanguagesList.filter(
-                      //       (el) => el !== e.target.value
-                      //     )
-                      //   ]);
-                      // } else
-                      //   setSelectedLanguagesList([
-                      //     ...selectedLanguagesList,
-                      //     e.target.value
-                      //   ]);
-                      const sel = [];
-                      setSelectedLanguagesList(sel);
-                    setAppliedLanguagesList(sel);
-                    }}
-                  />
-                  All
-                </div>
+            <div key="all">
+              <input
+                type="radio"
+                value="All"
+                name="language"
+                defaultChecked
+                onChange={() => {
+                  // if (
+                  //   selectedLanguagesList.find(
+                  //     (el) => el === e.target.value
+                  //   ) !== undefined
+                  // ) {
+                  //   setSelectedLanguagesList([
+                  //     ...selectedLanguagesList.filter(
+                  //       (el) => el !== e.target.value
+                  //     )
+                  //   ]);
+                  // } else
+                  //   setSelectedLanguagesList([
+                  //     ...selectedLanguagesList,
+                  //     e.target.value
+                  //   ]);
+                  const sel = [];
+                  setSelectedLanguagesList(sel);
+                  setAppliedLanguagesList(sel);
+                }}
+              />
+              All
+            </div>
             {languageList.map((lang) => {
               return (
                 <div key={lang}>
@@ -287,7 +347,7 @@ export default function FeedFinal() {
                       //   ]);
                       const sel = [e.target.value];
                       setSelectedLanguagesList(sel);
-                    setAppliedLanguagesList(sel);
+                      setAppliedLanguagesList(sel);
                     }}
                   />
                   {'  '} {lang}

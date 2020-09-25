@@ -36,6 +36,15 @@ const SearchBar = ({ page, searchFilter }) => {
             outline: 'none'
           }}
         />
+        <img
+          src="/SVG/cross-icon.png"
+          alt="cross-icon"
+          style={{
+            cursor: 'pointer',
+            width: '20px',
+            color: 'white'
+          }}
+        />
       </div>
     </div>
   );
